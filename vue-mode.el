@@ -110,6 +110,10 @@ To be formatted with the tag name, and the language.")
   "A regular expression for the starting tags of template areas.
 To be formatted with the tag name.")
 
+(defvar vue-imenu-generic-expression
+  '(("methods" "^\\s-*\\([a-zA-Z0-9_]+\\): function" 1))
+  "Imenu pattern for `vue-mode'.")
+
 (defun vue--setup-mmm ()
   "Add syntax highlighting regions to mmm-mode, according to `vue-modes'."
   (dolist (mode-binding vue-modes)
@@ -142,6 +146,9 @@ To be formatted with the tag name.")
 
 ;;;###autoload
 (define-derived-mode vue-mode html-mode "vue"
+  (set (make-local-variable 'imenu-generic-expression)
+       vue-imenu-generic-expression)
+
   (when (not vue-initialized)
     (vue--setup-mmm)))
 
